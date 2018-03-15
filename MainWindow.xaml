@@ -1,0 +1,64 @@
+﻿<Window x:Class="ImageHue.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:med="clr-namespace:System.Windows.Media"
+        xmlns:local="clr-namespace:ImageHue"
+        xmlns:vm="clr-namespace:ImageHue.ViewModel"
+        xmlns:conv="clr-namespace:ImageHue.View.Converter"
+        mc:Ignorable="d"
+        Title="Image Hue" Height="350" Width="525">
+    <Window.Resources>
+        <med:ImageConverter x:Key="ImageConverter" />
+        <conv:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Margin="5">
+            <StackPanel Orientation="Vertical">
+                <GroupBox Header="Status">
+                    <TextBox IsReadOnly="True" Text="{Binding Status}" Margin="5"/>
+                </GroupBox>
+                <GroupBox Header="Groups">
+                    <ComboBox ItemsSource="{Binding Groups}" SelectedValue="{Binding SelectedGroup}" Margin="5"/>
+                </GroupBox>
+                <GroupBox Header="Speed">
+                    <StackPanel Orientation="Vertical">
+                        <Slider Minimum="1" Maximum="50" Value="{Binding Speed}" Margin="5"/>
+                        <CheckBox Content="Random Time" IsChecked="{Binding Random}" Margin="5"/>
+                        <CheckBox Content="Sync Transition Time" IsChecked="{Binding Sync}" Margin="5"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Control">
+                    <StackPanel Orientation="Vertical">
+                        <CheckBox Content="Active" Command="{Binding RunCommand}" IsChecked="{Binding Run}" Margin="5"/>
+                        <Button Content="Turn Off" Margin="5" Command="{Binding TurnOffCommand}" />
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </Grid>
+
+        <DockPanel Grid.Column="1">
+            <GroupBox Header="Current Color" DockPanel.Dock="Top" Margin="5">
+                <DockPanel>
+                    <Border DockPanel.Dock="Right" Background="{Binding CurrentColor, FallbackValue=black, Converter={StaticResource ColorToSolidColorBrushConverter}}" Height="20" Margin="5"/>
+                </DockPanel>
+            </GroupBox>
+            <GroupBox Header="Load Image"  DockPanel.Dock="Bottom" Margin="5">
+                <DockPanel LastChildFill="True" Margin="5">
+                    <Button DockPanel.Dock="Right" Content="Open Image" Command="{Binding LoadImageCommand}" Padding="2 0 2 0"/>
+                    <ProgressBar DockPanel.Dock="Left" IsIndeterminate="{Binding Loading}"/>
+                </DockPanel>
+            </GroupBox>
+            <GroupBox Header="Image" Margin="5">
+                <Image Source="{Binding Image, Converter={StaticResource ImageConverter}}" Grid.Row="1" Margin="5" />
+            </GroupBox>
+        </DockPanel>
+
+    </Grid>
+</Window>
