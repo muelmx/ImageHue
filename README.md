@@ -17,6 +17,9 @@ ImageHue is a simple tool to use any image as source of color for your hue light
 3. Wait until your bridge has been found and hit the pair button
 4. Load an image and hit the *Active* checkbox
 
+## Requirements
+- Windows OS with a recent version of the .Net framework (4.6.1 or later).
+
 ## Credits
 This app is made possible by:
 - [Q42 Hue Api](https://github.com/Q42/Q42.HueApi)
