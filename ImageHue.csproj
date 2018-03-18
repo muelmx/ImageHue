@@ -139,25 +139,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Helper\Extensions.cs" />
     <Compile Include="Helper\ImageConverter.cs" />
-    <Compile Include="Model\DB.cs" />
-    <Compile Include="Model\IDB.cs" />
-    <Compile Include="Model\IHue.cs" />
-    <Compile Include="Model\IImage.cs" />
-    <Compile Include="Model\Image.cs" />
-    <Compile Include="Model\IModel.cs" />
-    <Compile Include="Model\IStateHandler.cs" />
-    <Compile Include="Model\StateHandler.cs" />
-    <Compile Include="ViewModel\BaseViewModel.cs" />
-    <Compile Include="ViewModel\ChromeViewModel.cs" />
-    <Compile Include="ViewModel\IChromeViewModel.cs" />
-    <Compile Include="ViewModel\IMainViewModel.cs" />
-    <Compile Include="ViewModel\IViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\RelayCommand.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="Model\Implementation\DB.cs" />
+    <Compile Include="Model\Interface\IDB.cs" />
+    <Compile Include="Model\Interface\IHue.cs" />
+    <Compile Include="Model\Interface\IImage.cs" />
+    <Compile Include="Model\Implementation\Image.cs" />
+    <Compile Include="Model\Interface\IModel.cs" />
+    <Compile Include="Model\Interface\IStateHandler.cs" />
+    <Compile Include="Model\Implementation\StateHandler.cs" />
+    <Compile Include="ViewModel\Implementation\BaseViewModel.cs" />
+    <Compile Include="ViewModel\Implementation\ChromeViewModel.cs" />
+    <Compile Include="ViewModel\Interface\IChromeViewModel.cs" />
+    <Compile Include="ViewModel\Interface\IMainViewModel.cs" />
+    <Compile Include="ViewModel\Interface\IViewModel.cs" />
+    <Compile Include="ViewModel\Implementation\MainViewModel.cs" />
+    <Compile Include="ViewModel\Implementation\RelayCommand.cs" />
+    <Compile Include="ViewModel\Implementation\ViewModelLocator.cs" />
     <Compile Include="View\Converter\ColorToSolidColorBrushConverter.cs" />
-    <Page Include="MainWindow.xaml">
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -165,14 +166,14 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Bootstrapper.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Helper\Bootstrapper.cs" />
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Hue.cs" />
+    <Compile Include="Model\Implementation\Hue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

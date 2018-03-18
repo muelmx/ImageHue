@@ -12,17 +12,19 @@ namespace ImageHue.Model
         public Color Color { get; set; }
     }
 
-    class StateHandler : IStateHandler
+    internal class StateHandler : IStateHandler
     {
         private System.Timers.Timer _timer;
-        Random _r = new Random();
+        private readonly Random _r = new Random();
         private bool _run = false;
         private Color _currentColor;
-        private IHue _hue;
-        private IImage _img;
+        private readonly IHue _hue;
+        private readonly IImage _img;
         private double _speed = 1;
         private bool _random;
         private bool _sync;
+
+        
 
         public event EventHandler<ColorEventArgs> ColorUpdate;
 
@@ -54,8 +56,11 @@ namespace ImageHue.Model
 
         public bool Random { set { _random = value; RestartTimer(); } private get => _random; }
         public bool Sync { set { _sync = value; RestartTimer(); } private get => _sync; }
+        public int BriColor { private get; set; } = 255;
+        public int BriWhite { private get; set; } = 255;
+        public bool PickRandom { private get; set; }
 
-        void Update()
+        private void Update()
         {
             if (Run)
             {
@@ -63,7 +68,7 @@ namespace ImageHue.Model
             }
             else
             {
-                _timer.Stop();
+                _timer?.Stop();
                 _timer = null;
             }
         }
@@ -101,7 +106,7 @@ namespace ImageHue.Model
 
             var t = Sync && timerInterval > 0 ? TimeSpan.FromMilliseconds(timerInterval) : TimeSpan.FromSeconds((20 + (Random ? (int)Math.Floor(_r.NextDouble() * 10) : 10)) / (Speed/2));
 
-            _hue.SetColor(_currentColor, SelectedGroup, t);
+            _hue.SetColor(_currentColor, SelectedGroup, t, BriWhite, BriColor, PickRandom);
         }
     }
 

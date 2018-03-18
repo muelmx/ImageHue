@@ -12,7 +12,7 @@ namespace ImageHue.Model
         event EventHandler<HueEventArgs> StatusUpdate;
         Task Init();
         Task<List<string>> GetGroups();
-        void SetColor(Color c, string Group, TimeSpan t);
-        void TurnOff(string Group);
+        Task SetColor(Color c, string @group, TimeSpan t, int briWhite, int briColor, bool randomLights);
+        void TurnOff(string @group);
     }
 }

@@ -8,7 +8,7 @@
         xmlns:vm="clr-namespace:ImageHue.ViewModel"
         xmlns:conv="clr-namespace:ImageHue.View.Converter"
         mc:Ignorable="d"
-        Title="Image Hue" Height="350" Width="525">
+        Title="ImageHue" Height="450" Width="650">
     <Window.Resources>
         <med:ImageConverter x:Key="ImageConverter" />
         <conv:ColorToSolidColorBrushConverter x:Key="ColorToSolidColorBrushConverter" />
@@ -25,13 +25,28 @@
                     <TextBox IsReadOnly="True" Text="{Binding Status}" Margin="5"/>
                 </GroupBox>
                 <GroupBox Header="Groups">
-                    <ComboBox ItemsSource="{Binding Groups}" SelectedValue="{Binding SelectedGroup}" Margin="5"/>
+                    <StackPanel Orientation="Vertical">
+                        <ComboBox ItemsSource="{Binding Groups}" SelectedValue="{Binding SelectedGroup}" Margin="5"/>
+                        <CheckBox Content="Pick Random Lights" Margin="5" IsChecked="{Binding PickRandom}"></CheckBox>
+                    </StackPanel>
                 </GroupBox>
                 <GroupBox Header="Speed">
                     <StackPanel Orientation="Vertical">
                         <Slider Minimum="1" Maximum="50" Value="{Binding Speed}" Margin="5"/>
                         <CheckBox Content="Random Time" IsChecked="{Binding Random}" Margin="5"/>
                         <CheckBox Content="Sync Transition Time" IsChecked="{Binding Sync}" Margin="5"/>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Header="Brightness">
+                    <StackPanel Orientation="Vertical">
+                        <DockPanel>
+                            <Label Width="45" DockPanel.Dock="Left" Content="Color"/>
+                            <Slider DockPanel.Dock="Right" Minimum="0" Maximum="255" Value="{Binding BriColor}" VerticalAlignment="Center" />
+                        </DockPanel>
+                        <DockPanel>
+                            <Label Width="45" DockPanel.Dock="Left" Content="White"/>
+                            <Slider DockPanel.Dock="Right" Minimum="0" Maximum="255" Value="{Binding BriWhite}" VerticalAlignment="Center" />
+                        </DockPanel>
                     </StackPanel>
                 </GroupBox>
                 <GroupBox Header="Control">

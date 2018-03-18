@@ -32,6 +32,12 @@ namespace ImageHue.ViewModel
 
         bool Sync { get; set; }
 
+        int BriColor { get; set; }
+
+        int BriWhite { get; set; }
+ 
+        bool PickRandom { get; set; }
+
         List<string> Groups { get; set; }
 
         String SelectedGroup { get; set; }
