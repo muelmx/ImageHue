@@ -12,23 +12,23 @@ namespace ImageHue.Model
 {
     public class Image : IImage
     {
-        Bitmap img;
-        Object locker = new Object();
+        private Bitmap _img;
+        private readonly object _locker = new object();
         public Color GetNextValue()
         {
-            if(img == null)
+            if(_img == null)
             {
                 return Color.Black;
             }
 
             Bitmap imageclone;
-            lock (locker)
+            lock (_locker)
             {
-                imageclone = (Bitmap)img.Clone();
+                imageclone = (Bitmap)_img.Clone();
             }
 
-            Random r = new Random();
-            Color clr = imageclone.GetPixel((int)Math.Floor(r.NextDouble() * imageclone.Width), (int)Math.Floor(r.NextDouble() * imageclone.Height));
+            var r = new Random();
+            var clr = imageclone.GetPixel((int)Math.Floor(r.NextDouble() * imageclone.Width), (int)Math.Floor(r.NextDouble() * imageclone.Height));
 
             return clr;
         }
@@ -38,18 +38,21 @@ namespace ImageHue.Model
             return Task.Factory.StartNew<System.Drawing.Image>(() =>
             {
                 System.Drawing.Image image;
-                byte[] photoBytes = File.ReadAllBytes(path);
+                var photoBytes = File.ReadAllBytes(path);
                 ISupportedImageFormat format = new PngFormat();
 
-                using (MemoryStream inStream = new MemoryStream(photoBytes))
+                using (var inStream = new MemoryStream(photoBytes))
                 {
-                    using (ImageFactory imageFactory = new ImageFactory())
+                    using (var imageFactory = new ImageFactory())
                     {
                         image = (System.Drawing.Image)imageFactory.Load(inStream).Pixelate(50).Image.Clone();
                     }
                 }
 
-                img = new Bitmap(image);
+                lock (_locker)
+                {
+                    _img = new Bitmap(image);
+                }
                 return image;
             });
         }

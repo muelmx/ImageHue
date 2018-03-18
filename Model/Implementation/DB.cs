@@ -7,19 +7,19 @@ using System.Threading.Tasks;
 
 namespace ImageHue.Model
 {
-    public class DB : IDB
+    public class Db : IDB
     {
-        private LiteDatabase db;
-        public DB()
+        private readonly LiteDatabase _db;
+        public Db()
         {
-            db = new LiteDatabase(@"data.db");
+            _db = new LiteDatabase(@"data.db");
         }
 
         public Task Deleteconfig()
         {
             return Task.Factory.StartNew(() =>
             {
-                var configs = db.GetCollection<Config>("configs");
+                var configs = _db.GetCollection<Config>("configs");
                 configs.Delete(c => true);
             });
         }
@@ -28,7 +28,7 @@ namespace ImageHue.Model
         {
             return Task.Factory.StartNew<Config>(() =>
             {
-                var configs = db.GetCollection<Config>("configs");
+                var configs = _db.GetCollection<Config>("configs");
                 return configs.FindOne(c => true);
             });
         }
@@ -37,7 +37,7 @@ namespace ImageHue.Model
         {
             return Task.Factory.StartNew(() =>
             {
-                var configs = db.GetCollection<Config>("configs");
+                var configs = _db.GetCollection<Config>("configs");
                 configs.Delete(c => true);
 
                 configs.Insert(config);

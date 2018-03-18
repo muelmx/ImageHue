@@ -14,22 +14,28 @@ namespace ImageHue.ViewModel
 
     public class MainViewModel : BaseViewModel, IMainViewModel
     {
-        private IHue _hue;
-        private IImage _img;
-        private IStateHandler _handler;
+        private readonly IHue _hue;
+        private readonly IImage _img;
+        private readonly IStateHandler _handler;
+
         private string _status = "Starting up...";
-        System.Drawing.Image _image;
-        RelayCommand _loadImageCommand;
+        private System.Drawing.Image _image;
         private Color _currentColor;
         private bool _loading;
+
         private RelayCommand _runCommand;
+        private RelayCommand _turnOffCommand;
+        private RelayCommand _loadImageCommand;
 
         private List<string> _groups;
         private string _selectedGroup;
-        private int _speed = 1;
-        private RelayCommand _turnOffCommand;
-        private bool _sync;
-        private bool _random;
+        private int _speed = 10;
+        private bool _sync = true;
+        private bool _random = true;
+        private int _briColor = 255;
+        private int _briWhite = 255;
+        private bool _pickRandom;
+        private bool _run;
 
         public MainViewModel(IHue hue, IImage img, IStateHandler handler)
         {
@@ -104,7 +110,7 @@ namespace ImageHue.ViewModel
         }
 
 
-        private async void LoadImageAsyncHandler(Object o)
+        private async void LoadImageAsyncHandler(object o)
         {
             await LoadImageAsync();
         }
@@ -125,34 +131,31 @@ namespace ImageHue.ViewModel
             Loading = false;
         }
 
-        public ICommand RunCommand
+        public ICommand RunCommand => _runCommand ?? (_runCommand = new RelayCommand(RunCommandHandler));
+
+        private void RunCommandHandler(object o)
         {
-            get
+        }
+
+        public bool Run
+        {
+            get => _run;
+            set
             {
-                return _runCommand ?? (_runCommand = new RelayCommand(RunCommandHandler));
+                _run = value; OnPropertyChanged();
+                _handler.Run = _run;
             }
         }
 
-        private void RunCommandHandler(Object o)
+
+        public ICommand TurnOffCommand => _turnOffCommand ?? (_turnOffCommand = new RelayCommand(TurnOffCommandHandler));
+
+        private void TurnOffCommandHandler(object o)
         {
-            _handler.Run = Run;
-        }
-
-        public bool Run { get; set; }
-
-
-        public ICommand TurnOffCommand
-        {
-            get
-            {
-                return _turnOffCommand ?? (_turnOffCommand = new RelayCommand(TurnOffCommandHandler));
-            }
-        }
-
-        private void TurnOffCommandHandler(Object o)
-        {
+            Run = false;
             _hue.TurnOff(SelectedGroup);
         }
+
 
 
         public List<string> Groups
@@ -203,6 +206,37 @@ namespace ImageHue.ViewModel
                 _handler.Random = _random;
             }
         }
-      
+
+        public int BriColor
+        {
+            get => _briColor;
+            set
+            {
+                if (value < 0 || value > 255) throw new ArgumentOutOfRangeException(nameof(value));
+                _briColor = value;
+                _handler.BriColor = _briColor;
+            }
+        }
+
+        public int BriWhite
+        {
+            get => _briWhite;
+            set
+            {
+                if (value < 0 || value > 255) throw new ArgumentOutOfRangeException(nameof(value));
+                _briWhite = value;
+                _handler.BriWhite = _briWhite;
+            }
+        }
+
+        public bool PickRandom
+        {
+            get => _pickRandom;
+            set
+            {
+                _pickRandom = value;
+                _handler.PickRandom = _pickRandom;
+            }
+        }
     }
 }
