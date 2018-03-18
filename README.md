@@ -1,7 +1,7 @@
 # ImageHue
 ImageHue is a simple tool to use any image as source of color for your hue lights.
 
-<img src="https://user-images.githubusercontent.com/11611674/37466759-db5a0ca2-285e-11e8-955d-308e7c29f0bd.PNG" width="600" />
+<img src="https://user-images.githubusercontent.com/11611674/37569037-3f73ba50-2add-11e8-8827-0e6df72b1857.PNG" width="600" />
 
 ## Features
 - Load any image as source of color for groups of lights
