@@ -1,5 +1,5 @@
 # ImageHue
-ImageHue is a simple tool to use any image as source of color for your hue lights.
+ImageHue is a simple tool to use any image as source of color for your hue lights. No need to set up some complex routines, just use paint to create an image with your favorite colors and run the app.
 
 <img src="https://user-images.githubusercontent.com/11611674/37569037-3f73ba50-2add-11e8-8827-0e6df72b1857.PNG" width="600" />
 
@@ -8,8 +8,11 @@ ImageHue is a simple tool to use any image as source of color for your hue light
 - The color is chosen randomly from the image
 - Adjust the time between the colors and the transition speed
 - Randomize times
+- Randomize which lights are selected
+- Set the brightness for white and colored luminaires independently
 - Sync the transition time with the time between colors, so it looks like an infinite transition
 - No installation required, just run the app
+- Easy and convenient
 
 ## How to use
 1. Get the latest [release](https://github.com/muelmx/ImageHue/releases)
