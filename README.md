@@ -34,4 +34,4 @@ This app is made possible by:
 This project is licensed under [MIT](http://www.opensource.org/licenses/mit-license.php).
 
 ## Contributions
-I would be very happy about any contribution. Fell free to fork and pull request at any time.
+I would be very happy about any contribution. Feel free to fork and pull request at any time.
